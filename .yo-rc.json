@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Juan Carlos Galan Hernandez",
+      "authorEmail": "jcgalanh@gmail.com",
+      "authorUrl": "https://juancgalan.com"
+    }
+  }
+}
