@@ -16,53 +16,53 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'appname',
         message: "What is the project's name?",
-        default: ''
+        default: this.appname
       },
       {
         type: 'input',
         name: 'authorname',
         message: "Author's name?",
-        default: this.appname
+        store: true
       },
       {
         type: 'input',
         name: 'repository',
         message: "Repository?",
-        default: ''
       },
       {
         type: 'list',
         name: 'license',
         message: "License?",
         choices: ['MIT', 'Apache', 'cc3', 'GNU', 'lGNU'],
-        default: 'MIT'
-      }
+        default: 'MIT',
+      },
     ];
 
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    })
+    return this.prompt(prompts)
+      .then(props => {
+        // To access props later use this.props.someAnswer;
+        this.props = props
+      });
   }
-
+  
 
   writing() {
      this.fs.copy(
       this.templatePath('_.gitignore'),
-      this.destinationPath(this.props.appname + '/.gitignore')
+      this.destinationPath('.gitignore')
     );
     this.fs.copy(
       this.templatePath('_src/_main/_app.js'),
-      this.destinationPath(this.props.appname+ '/src/main/app.js'))
+      this.destinationPath('src/main/app.js'))
     this.fs.copy(
       this.templatePath('_src/_test/_app.test.js'),
-      this.destinationPath(this.props.appname+ '/src/test/app.test.js'))
+      this.destinationPath('src/test/app.test.js'))
     this.fs.copy(
       this.templatePath('_.babelrc'),
-      this.destinationPath(this.props.appname + '/.babelrc')) 
+      this.destinationPath('.babelrc')) 
     this.fs.copyTpl(
       this.templatePath('_package.json'),
-      this.destinationPath(this.props.appname + '/package.json'), {
+      this.destinationPath('package.json'), {
         appname: this.props.appname,
         authorname: this.props.authorname,
         license: this.props.license,
